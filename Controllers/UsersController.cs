@@ -11,7 +11,10 @@ public class UserController : ControllerBase
     {
         _context = context;
     }
-
+    /// <summary>
+    /// Hello
+    /// </summary>
+    /// <returns></returns>
     // GET: api/GetAllUsers
     [HttpGet("GetAll[controller]s")]
     public async Task<ActionResult<IEnumerable<Users>>> GetAll()
