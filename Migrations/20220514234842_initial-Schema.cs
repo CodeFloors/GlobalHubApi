@@ -8,10 +8,9 @@ namespace GlobalHub.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Applications",
-                columns: table => new
-                {
+                columns: table => new {
                     PkapplicationsCode = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApplicationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -24,29 +23,25 @@ namespace GlobalHub.Migrations
                     PricePerMonth = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ApplicationType = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Applications", x => x.PkapplicationsCode);
+                constraints: table => {
+                    _ = table.PrimaryKey("PK_Applications", x => x.PkapplicationsCode);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Counteries",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PKCountryCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CountryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Counteries", x => x.Id);
+                constraints: table => {
+                    _ = table.PrimaryKey("PK_Counteries", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Users",
-                columns: table => new
-                {
+                columns: table => new {
                     Userid = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Userfirstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -64,15 +59,13 @@ namespace GlobalHub.Migrations
                     Useremail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Userid);
+                constraints: table => {
+                    _ = table.PrimaryKey("PK_Users", x => x.Userid);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "ApplicationParameterNames",
-                columns: table => new
-                {
+                columns: table => new {
                     PkapplicationParameterCode = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParameterName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -84,10 +77,9 @@ namespace GlobalHub.Migrations
                     DisplaySequence = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationParameterNames", x => x.PkapplicationParameterCode);
-                    table.ForeignKey(
+                constraints: table => {
+                    _ = table.PrimaryKey("PK_ApplicationParameterNames", x => x.PkapplicationParameterCode);
+                    _ = table.ForeignKey(
                         name: "FK_ApplicationParameterNames_Applications_FkApplicationCode",
                         column: x => x.FkApplicationCode,
                         principalTable: "Applications",
@@ -95,10 +87,9 @@ namespace GlobalHub.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "ApplicationsAccounts",
-                columns: table => new
-                {
+                columns: table => new {
                     PkAccountCode = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -106,16 +97,15 @@ namespace GlobalHub.Migrations
                     FkApplicationCode = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationsAccounts", x => x.PkAccountCode);
-                    table.ForeignKey(
+                constraints: table => {
+                    _ = table.PrimaryKey("PK_ApplicationsAccounts", x => x.PkAccountCode);
+                    _ = table.ForeignKey(
                         name: "FK_ApplicationsAccounts_Applications_FkApplicationCode",
                         column: x => x.FkApplicationCode,
                         principalTable: "Applications",
                         principalColumn: "PkapplicationsCode",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_ApplicationsAccounts_Users_FkuserId",
                         column: x => x.FkuserId,
                         principalTable: "Users",
@@ -123,20 +113,18 @@ namespace GlobalHub.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "ApplicationParameters",
-                columns: table => new
-                {
+                columns: table => new {
                     PkapplicationParameterCode = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParameterName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParameterValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FkAccountCode = table.Column<long>(type: "bigint", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationParameters", x => x.PkapplicationParameterCode);
-                    table.ForeignKey(
+                constraints: table => {
+                    _ = table.PrimaryKey("PK_ApplicationParameters", x => x.PkapplicationParameterCode);
+                    _ = table.ForeignKey(
                         name: "FK_ApplicationParameters_ApplicationsAccounts_FkAccountCode",
                         column: x => x.FkAccountCode,
                         principalTable: "ApplicationsAccounts",
@@ -144,22 +132,22 @@ namespace GlobalHub.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ApplicationParameterNames_FkApplicationCode",
                 table: "ApplicationParameterNames",
                 column: "FkApplicationCode");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ApplicationParameters_FkAccountCode",
                 table: "ApplicationParameters",
                 column: "FkAccountCode");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ApplicationsAccounts_FkApplicationCode",
                 table: "ApplicationsAccounts",
                 column: "FkApplicationCode");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_ApplicationsAccounts_FkuserId",
                 table: "ApplicationsAccounts",
                 column: "FkuserId");
@@ -167,22 +155,22 @@ namespace GlobalHub.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "ApplicationParameterNames");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "ApplicationParameters");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Counteries");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "ApplicationsAccounts");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Applications");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Users");
         }
     }
