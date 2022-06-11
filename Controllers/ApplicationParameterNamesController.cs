@@ -13,14 +13,14 @@ public class ApplicationParameterNameController : ControllerBase
 
     // GET: api/ApplicationParameterNames
     [HttpGet("GetAll[controller]s")]
-    public async Task<ActionResult<IEnumerable<ApplicationParameterNames>>> GetAll()
+    public async Task<ActionResult<IEnumerable<ApplicationParameterName>>> GetAll()
     {
         return await _context.ApplicationParameterNames.ToListAsync();
     }
 
     // GET: api/GetApplicationParameterNameById/1
     [HttpGet("Get[controller]ById/{id}")]
-    public async Task<ActionResult<ApplicationParameterNames>> GetById(long id)
+    public async Task<ActionResult<ApplicationParameterName>> GetById(long id)
     {
         var applicationParameterNames = await _context.ApplicationParameterNames.FindAsync(id);
 
@@ -33,16 +33,16 @@ public class ApplicationParameterNameController : ControllerBase
 
     // PUT: api/UpdateApplicationParameterNameById/1    
     [HttpPut("Update[controller]ById/{id}")]
-    public async Task<IActionResult> Update(long id, ApplicationParameterNames applicationParameterNames)
+    public async Task<IActionResult> Update(long id, ApplicationParameterName applicationParameterNames)
     {
-        if (id != applicationParameterNames.PkapplicationParameterCode) {
+        if (id != applicationParameterNames.PKApplicationParameterCode) {
             return BadRequest();
         }
 
         _context.Entry(applicationParameterNames).State = EntityState.Modified;
 
         try {
-            await _context.SaveChangesAsync();
+            _ = await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException) {
             if (!ApplicationParameterNamesExists(id)) {
@@ -58,10 +58,10 @@ public class ApplicationParameterNameController : ControllerBase
 
     // POST: api/AddApplicationParameterName   
     [HttpPost("Add[controller]")]
-    public async Task<ActionResult<ApplicationParameterNames>> Add(ApplicationParameterNames applicationParameterNames)
+    public async Task<ActionResult<ApplicationParameterName>> Add(ApplicationParameterName applicationParameterNames)
     {
-        _context.ApplicationParameterNames.Add(applicationParameterNames);
-        await _context.SaveChangesAsync();
+        _ = _context.ApplicationParameterNames.Add(applicationParameterNames);
+        _ = await _context.SaveChangesAsync();
 
         return Ok(applicationParameterNames);
     }
@@ -75,14 +75,14 @@ public class ApplicationParameterNameController : ControllerBase
             return NotFound();
         }
 
-        _context.ApplicationParameterNames.Remove(applicationParameterNames);
-        await _context.SaveChangesAsync();
+        _ = _context.ApplicationParameterNames.Remove(applicationParameterNames);
+        _ = await _context.SaveChangesAsync();
 
         return NoContent();
     }
 
     private bool ApplicationParameterNamesExists(long id)
     {
-        return _context.ApplicationParameterNames.Any(e => e.PkapplicationParameterCode == id);
+        return _context.ApplicationParameterNames.Any(e => e.PKApplicationParameterCode == id);
     }
 }

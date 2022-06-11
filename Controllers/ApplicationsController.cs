@@ -13,14 +13,14 @@ public class ApplicationController : ControllerBase
 
     // GET: api/GetAllApplications
     [HttpGet("GetAll[controller]s")]
-    public async Task<ActionResult<IEnumerable<Applications>>> GetAll()
+    public async Task<ActionResult<IEnumerable<Application>>> GetAll()
     {
         return await _context.Applications.ToListAsync();
     }
 
     // GET: api/GetApplicationById/5
     [HttpGet("Get[controller]ById/{id}")]
-    public async Task<ActionResult<Applications>> GetById(int id)
+    public async Task<ActionResult<Application>> GetById(int id)
     {
         var applications = await _context.Applications.FindAsync(id);
 
@@ -33,16 +33,16 @@ public class ApplicationController : ControllerBase
 
     // PUT: api/UpdateApplicationById/5    
     [HttpPut("Update[controller]ById/{id}")]
-    public async Task<IActionResult> Update(int id, Applications applications)
+    public async Task<IActionResult> Update(int id, Application applications)
     {
-        if (id != applications.PkapplicationsCode) {
+        if (id != applications.PKApplicationsCode) {
             return BadRequest();
         }
 
         _context.Entry(applications).State = EntityState.Modified;
 
         try {
-            await _context.SaveChangesAsync();
+            _ = await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException) {
             if (!ApplicationsExists(id)) {
@@ -58,10 +58,10 @@ public class ApplicationController : ControllerBase
 
     // POST: api/AddApplication    
     [HttpPost("Add[controller]")]
-    public async Task<ActionResult<Applications>> Add(Applications applications)
+    public async Task<ActionResult<Application>> Add(Application applications)
     {
-        _context.Applications.Add(applications);
-        await _context.SaveChangesAsync();
+        _ = _context.Applications.Add(applications);
+        _ = await _context.SaveChangesAsync();
 
         return Ok(applications);
     }
@@ -75,14 +75,14 @@ public class ApplicationController : ControllerBase
             return NotFound();
         }
 
-        _context.Applications.Remove(applications);
-        await _context.SaveChangesAsync();
+        _ = _context.Applications.Remove(applications);
+        _ = await _context.SaveChangesAsync();
 
         return NoContent();
     }
 
     private bool ApplicationsExists(int id)
     {
-        return _context.Applications.Any(e => e.PkapplicationsCode == id);
+        return _context.Applications.Any(e => e.PKApplicationsCode == id);
     }
 }
